@@ -11,3 +11,11 @@ swiftc -target "$(uname -m)-apple-macosx11.0" \
     -o "$app/Contents/MacOS/Mira" -framework Cocoa -framework UniformTypeIdentifiers
 codesign --force --deep --sign - "$app"
 printf 'Mira.app compilado com sucesso.\n'
+
+mkdir -p dist
+pkgbuild --component "$app" \
+    --install-location /Applications \
+    --identifier br.com.mira.capturas.instalador \
+    --version 1.0 \
+    dist/Mira-1.0.pkg
+printf 'Instalador criado em dist/Mira-1.0.pkg.\n'
